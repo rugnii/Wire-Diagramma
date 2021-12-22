@@ -17,16 +17,14 @@ const userSchema = new mongoose.Schema({
     projects: [{type: mongoose.ObjectId, ref: 'Project'}]
 })
 
+
+const componentOptions = {discrimiatorKey: 'Type'}
 const componentSchema = new mongoose.Schema({
-    type: {type: mongoose.ObjectId, ref: 'Component Type'},
-
-
-})
-
-const component = new mongoose.Schema({
-    type: {type: mongoose.ObjectId, ref: 'Component Type'},
+    manufacturer: {type: mongoose.ObjectId, ref: 'manufacturer'},
+    manufacturerProductNumber: {type: Number, ref: 'Manufacturer Product Number'},
+    link: {type: String, ref: 'Link'},
     joints: [{type: mongoose.ObjectId, ref: 'Joint'}],
-})
+}, componentOptions)
 
 const wireSchema = new mongoose.Schema({
     crossSection: {type: Number, ref: 'Wire Thickness'},
@@ -38,14 +36,14 @@ const cableSchema = new mongoose.Schema({
     manufacturer: {type: mongoose.ObjectId, ref: 'Manufacturer'},
     OrderId: {type: String, ref:'Order Id'},
     wires: [{type: mongoose.ObjectId, ref: 'Wire'}],
-    connectors: [{type: mongoose.ObjectId, ref: 'Connectors'}]
-})
+    ends: [{type: String}]
+}, componentOptions)
 
 const jointSchema = new mongoose.Schema({
     type: {type: mongoose.ObjectId, ref: 'Joint Type'}
 })
 
-const componentTypeSchema = new mongoose.Schema({
+const ref = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -80,6 +78,12 @@ const pageSchema = new mongoose.Schema({
     components: [{type: mongoose.ObjectId, ref: 'Component Instance'}],
 })
 
+const cabinetSchema = new mongoose.Schema({
+    name: {type: String, ref: 'Name'},
+    Plates: [{size: {x: {type: Number}, y: {type: Number}}, name: {type: Number}, shape:{type:String}}],
+    manufacturer
+})
+
 
 const model = {
     project: mongoose.model('Project', projectSchema),
@@ -88,13 +92,31 @@ const model = {
     componentInstance: mongoose.model('Component Instance', componentInstanceSchema),
     joint: mongoose.model('Joint', jointSchema),
     jointType: mongoose.model('Joint Type', jointTypeSchema),
-    componentType: mongoose.model('Component Type', componentTypeSchema),
+    cable: component.discrimiator()
 }
+
+model.cable = model.component.discrimiator('Cable', cableSchema)
+model.connector = model.component.discrimiator('Connector', connectorSchema)
+
 
 /*
  ______
 |      | : [connector without gender] <> [connector without gender]
 | comp | : [connector Male] <> [connetor Female] >> {cable} << [connector Male] <> [connector female] : | comp |
 |______| : [connector female] <> {wire} <> [connector female] : |comp|
+
+
+
+
+http://thecodebarbarian.com/2015/07/24/guide-to-mongoose-discriminators
+
+
+
+         |      |       ____I___I____
+_________|______|_______|             | 
+
+
+types for components:
+
 
 */

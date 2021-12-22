@@ -18,5 +18,15 @@ Project to build a web based wire diagram editor for machines with electrical ca
 - Search & Filter by supplier, supplier code, type
 - Contains 3 views: abstract wire diagram style (logic), sketch (proportonal for cabinet overview) and optional picture
 - Diagram view scalable
+
+### component types
+
+- Active components: switches, buttons, lights, sensors, transformators, relais, computers etc
+- Passive components: cables, connectors, terminal blocks, distribution rails
+- 
+
+
+## Pages
+
 - 
 
