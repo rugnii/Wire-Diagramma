@@ -1,0 +1,152 @@
+Features of the nike repair database tool
+
+Glossary:
+    Entry:
+        Single dataset in a collection. Eg. one specific shoe model with data like name, description, year, key image, flaws etc.
+    Collection: 
+        A category for entries. Eg. the shoe-models collection would hold all entries that are shoe models
+    Database:
+        Stores several collections and manages the data (eg. adding/updating data)
+General
+    - User management to protect it from being public
+    - Optional: users with different edit rights
+
+Keyword search:
+    - searches through all data stored in the database
+    - get a list of results including key information
+    - each result entry leads to a dedicated page
+    - Filter for collections (eg. only search in images)
+
+Entry page (Dedicated page for each entry)
+    - view and edit data on the same page (eg. double-click on an value to change it)
+    - pages for each collection can be designed individually
+    - links leed directly to other pages
+    - shortcuts for adding new entries in other collections while modifying an entry. (Eg. while uploading a new image to the af1 page, an entry in the image collection is generated as well)
+    - Posibility to add new values over the course of the project
+    - optional: Update changes automatically
+    - optional: hidden attributes, eg. notes only visibly to pch
+
+Repair action finder
+    - select shoe type and flaws
+     -> get a list of repair actions in an order that makes sense, including key info about the repair (time, tools, station)
+    - optional: a map of stations that will be used and in which order
+
+Syncplicity connectivity
+    - something to look into a bit later in the process, because not super straight forward (data sequrity)
+    - The idea would be to be able to select images that are in a specific syncplicity folder and add them to an entry
+
+Open for new functions on the go
+    - this could develope into an app for selecting certain customizations, generate patterns for the repair...
+    
+
+Collections stored in the database (first draft):
+
+     shoeModel 
+        title  (text)
+        series: --> Link
+        KeyImage: --> Link
+        description  (text)
+        year  (text)
+        materials: {
+            outsole: --> Link
+            midsole: --> Link
+            technology: --> Link
+            upperMain: --> Link
+            upperSecondary: --> Link
+            laces: --> Link
+            lining: --> Link
+        }
+        flaws: [--> Link]
+        repairs: [--> Link]
+        images: [--> Link]
+        tags: [--> Link]
+        links: [--> Link]
+        notes  (text)
+    
+     shoeSeries 
+        title  (text)
+        description  (text)
+    
+     images 
+        title  (text)
+        pchProperty: Bool
+        filename  (text)
+        description  (text)
+        tags: [--> Link]
+    
+     videos 
+        title  (text)
+        pchProperty: Bool
+        youtubeUrl  (text)
+        description  (text)
+        tags: [--> Link]
+    
+     materials 
+        title  (text)
+        description  (text)
+        composition  (text)
+        treatments: [--> Link]
+        tags: [--> Link]
+
+     flaws 
+        title  (text)
+        description  (text)
+        keyTmage: --> Link
+        images: [--> Link]
+        tags: [--> Link]
+    
+     repairs 
+        title  (text)
+        intro  (text)
+        video: --> Link
+        steps: [{ number: (number) description  (text)}]
+        approximateDuration: (number)
+        tools: [--> Link]
+        skills: [--> Link]
+        notes  (text)
+        tags: [--> Link]
+        repairStation: --> Link
+    
+     object 
+        name  (text)
+        description  (text)
+        objectCategory: --> Link
+        keyImage: --> Link
+        images: [--> Link]
+        manufacturer  (text)
+        vendor: --> Link // Link
+        manufacturerId  (text)
+
+    
+     manufacturer 
+        name  (text)
+        website: --> Link
+        description  (text)
+    
+     vendor 
+        name  (text)
+        website: --> Link
+        description  (text)
+    
+     objectCategory 
+        name  (text)
+        description  (text)
+    
+     materialTreatments 
+        name  (text)
+        description  (text)
+        tools: [--> Link]
+    
+     repairStations 
+        name  (text)
+        order:  (number)
+        dimensions  (text)
+        description  (text)
+    
+     tags 
+        name  (text)
+    
+     links 
+        name  (text)
+        url  (text)
+
