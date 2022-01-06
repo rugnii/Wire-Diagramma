@@ -1,4 +1,4 @@
-# wd-frontend
+# wirediagramma
 
 ## Project setup
 ```
