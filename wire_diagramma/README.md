@@ -1,4 +1,4 @@
-# wirediagramma
+# wire_diagramma
 
 ## Project setup
 ```
